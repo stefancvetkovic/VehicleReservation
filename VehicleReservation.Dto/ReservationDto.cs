@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VehicleReservation.Application.CQRS.Commands.DeleteReservationVehicle
+namespace VehicleReservation.Dto
 {
-    public class DeleteReservationVehicleCommand
+    public class ReservationDto
     {
     }
 }

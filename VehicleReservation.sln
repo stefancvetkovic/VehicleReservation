@@ -15,13 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{35E71645-70AD-440D-871E-2EBE96B46604}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleReservation.Application", "VehicleReservation.Application\VehicleReservation.Application.csproj", "{AB6F7E24-E69C-48E9-9E39-DC2871D3DC7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleReservation.Application", "VehicleReservation.Application\VehicleReservation.Application.csproj", "{AB6F7E24-E69C-48E9-9E39-DC2871D3DC7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleReservation.Domain", "VehicleReservation.Domain\VehicleReservation.Domain.csproj", "{B7BE4F09-94FE-425C-BE4B-4292099F2B8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleReservation.Domain", "VehicleReservation.Domain\VehicleReservation.Domain.csproj", "{B7BE4F09-94FE-425C-BE4B-4292099F2B8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleReservation.Dto", "VehicleReservation.Dto\VehicleReservation.Dto.csproj", "{8109CD86-EA37-4728-BDDE-3F9676F0C05B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleReservation.Dto", "VehicleReservation.Dto\VehicleReservation.Dto.csproj", "{8109CD86-EA37-4728-BDDE-3F9676F0C05B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleReservation.Persistance", "VehicleReservation.Persistance\VehicleReservation.Persistance.csproj", "{DE23DDBE-A567-456C-8A97-8C1435DCEBB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleReservation.Persistance", "VehicleReservation.Persistance\VehicleReservation.Persistance.csproj", "{DE23DDBE-A567-456C-8A97-8C1435DCEBB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1FF87788-84DB-471B-954F-075334DBF0EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,7 +61,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B8E61534-6B94-451D-A16C-6612353908D7} = {D712A429-D578-4293-807B-BA8DCE905CD2}
-		{1FD0606B-CFF2-4110-99AE-0A840E47AD1E} = {9EBE2B91-7EBA-4864-A6A2-5F07E50EAB7C}
+		{1FD0606B-CFF2-4110-99AE-0A840E47AD1E} = {1FF87788-84DB-471B-954F-075334DBF0EA}
 		{41553715-218A-4107-8F46-CE41A6DE5260} = {9EBE2B91-7EBA-4864-A6A2-5F07E50EAB7C}
 		{D712A429-D578-4293-807B-BA8DCE905CD2} = {9EBE2B91-7EBA-4864-A6A2-5F07E50EAB7C}
 		{35E71645-70AD-440D-871E-2EBE96B46604} = {9EBE2B91-7EBA-4864-A6A2-5F07E50EAB7C}

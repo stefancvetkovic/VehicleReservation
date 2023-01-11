@@ -11,7 +11,7 @@ namespace VehicleReservation.Persistance
 {
     public static class ServiceExtension
     {
-        public static void AddPersistanceLayer(this IServiceCollection services)
+        public static void AddPersistanceLayer(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContextFactory<VehicleReservationContext>((sp, options) =>
             {

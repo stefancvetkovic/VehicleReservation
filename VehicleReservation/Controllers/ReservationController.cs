@@ -1,41 +1,75 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using VehicleReservation.Application.CQRS.Reservations.Commands.AddReservationForVehicle;
+using VehicleReservation.Application.CQRS.Reservations.Queries;
+using VehicleReservation.Dto;
+using VehicleReservation.WebApi.Controllers.Base;
 
 namespace VehicleReservation.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class ReservationController : ControllerBase
+    public class ReservationController : BaseApiController
     {
+        /// <summary>
+        /// Returns List of all upcoming reservations
+        /// </summary>
+        /// <returns>List<Reservation></returns>
         // GET: api/<ReservationController>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            if (Mediator != null)
+            {
+                return Ok(await Mediator.Send(new GetAllReservationsQuery()));
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
+        /// <summary>
+        /// Get Reservation by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Reservation</returns>
         // GET api/<ReservationController>/5
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Add new Reservation for vehicle
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns><c>Reservation</c></returns>
         // POST api/<ReservationController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Post([FromBody] ReservationDto reservation)
         {
-        }
-
-        // PUT api/<ReservationController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
+            return Ok(await Mediator!.Send(new AddReservationForVehicleCommand { ReservationDto = reservation}));
         }
 
         // DELETE api/<ReservationController>/5
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            throw new NotImplementedException();
         }
     }
 }

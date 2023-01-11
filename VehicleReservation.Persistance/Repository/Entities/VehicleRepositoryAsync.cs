@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VehicleReservation.Application.Intefaces.Entities;
 using VehicleReservation.Domain.Entities;
 using VehicleReservation.Persistance.Context;
@@ -19,9 +14,14 @@ namespace VehicleReservation.Persistance.Repository.Entities
             _vehicles = dbContext.Set<Vehicle>();
         }
 
-        public Task<List<Vehicle>> GetVehiclesByManufacturer(string manufacturerShortCode)
+        public async Task<string> GetLatestFreeId()
         {
-            throw new NotImplementedException();
+            return (await _vehicles.OrderByDescending(x => x.UniqueId).FirstOrDefaultAsync()).UniqueId;
+        }
+
+        public async Task<Vehicle> GetById(string id)
+        {
+            return await _vehicles.FirstOrDefaultAsync(x => x.UniqueId == id);
         }
     }
 }

@@ -10,6 +10,8 @@ namespace VehicleReservation.Application.Intefaces.Entities
 {
     public interface IVehicleRepositoryAsync : IGenericRepositoryAsync<Vehicle>
     {
-        public Task<List<Vehicle>> GetVehiclesByManufacturer(string manufacturerShortCode);
+        Task<string> GetLatestFreeId();
+
+        Task<Vehicle> GetById(string id);
     }
 }

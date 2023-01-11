@@ -11,6 +11,14 @@ namespace VehicleReservation.Application
         {
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), ServiceLifetime.Transient);
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            //var config = new AutoMapper.MapperConfiguration(cfg =>
+            //{
+            //    cfg.CreateMap<Vehicle, VehicleDto>();
+            //});
+
+            //var mapper = config.CreateMapper();
         }
     }
 }
