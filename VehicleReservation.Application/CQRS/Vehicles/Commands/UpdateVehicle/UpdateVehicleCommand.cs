@@ -8,7 +8,7 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.UpdateVehicle
 {
     public class UpdateVehicleCommand : IRequest<Result<VehicleDto>>
     {
-        public Vehicle? Vehicle { get; set; }
+        public VehicleDto? Vehicle { get; set; }
     }
     public class UpdateVehicleCommandHanlder : IRequestHandler<UpdateVehicleCommand, Result<VehicleDto>>
     {
@@ -29,10 +29,7 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.UpdateVehicle
                 if (request.Vehicle != null)
                 {
                     var entityForUpdate = await _vehicleRepository.GetById(request.Vehicle.UniqueId!);
-
-
-                    Vehicle entity = new();
-                    entity = _mapper.Map(request.Vehicle, entity);
+                    Vehicle entity = _mapper.Map(request.Vehicle, entityForUpdate);
 
                     await _vehicleRepository.UpdateAsync(entity);
 

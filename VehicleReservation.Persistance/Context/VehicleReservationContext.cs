@@ -20,6 +20,7 @@ namespace VehicleReservation.Persistance.Context
         {
             modelBuilder.Entity<Vehicle>(entity =>
             {
+                entity.HasKey(e => e.UniqueId);
                 entity.Property(e => e.Maker)
                     .IsRequired()
                     .HasMaxLength(50);

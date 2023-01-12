@@ -1,80 +1,79 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using VehicleReservation.Application.Intefaces.Entities;
 using VehicleReservation.Domain.Entities;
 using VehicleReservation.Dto;
 
 namespace VehicleReservation.Application.CQRS.Vehicles.Commands.AddVehicle
 {
-    public class AddVehicleCommand : IRequest<Result<Vehicle>>
+    public class AddVehicleCommand : IRequest<Result<VehicleDto>>
     {
-        public Vehicle? Vehicle { get; set; }
+        public VehicleDto? Vehicle { get; set; }
     }
-    public class AddVehicleCommandHanlder : IRequestHandler<AddVehicleCommand, Result<Vehicle>>
+    public class AddVehicleCommandHanlder : IRequestHandler<AddVehicleCommand, Result<VehicleDto>>
     {
         private readonly IVehicleRepositoryAsync _vehicleRepository;
-        public AddVehicleCommandHanlder(IVehicleRepositoryAsync vehicleRepository)
+        private IMapper _mapper;
+        public AddVehicleCommandHanlder(IVehicleRepositoryAsync vehicleRepository, IMapper mapper)
         {
             _vehicleRepository = vehicleRepository;
+            _mapper = mapper;
         }
 
-        public async Task<Result<Vehicle>> Handle(AddVehicleCommand request, CancellationToken cancellationToken)
+        public async Task<Result<VehicleDto>> Handle(AddVehicleCommand request, CancellationToken cancellationToken)
         {
-            Result<Vehicle> result = new();
+            Result<VehicleDto> result = new();
             try
             {
                 if (request.Vehicle != null)
                 {
-                    Vehicle vehicle = new();
+                    VehicleDto vehicle = new();
 
                     vehicle.Maker = request.Vehicle.Maker;
                     vehicle.Model = request.Vehicle.Model;
                     vehicle.UniqueId = await getNewId();
 
-                    var response = await _vehicleRepository.AddAsync(vehicle);
+                    Vehicle entity = _mapper.Map<Vehicle>(vehicle);
+                    var response = await _vehicleRepository.AddAsync(entity);
+
                     result.Success = true;
                     result.StatusCode = System.Net.HttpStatusCode.OK;
-                    result.Data = response;
+                    result.Data = vehicle;
 
                     return result;
                 }
             }
             catch (Exception ex)
             {
-                return ExceptionMethod(result, ex);
-            }
-
-            return ExceptionMethod(result, null, "Please provide a proper vehicle model.");
-        }
-
-        private static Result<Vehicle> ExceptionMethod(Result<Vehicle> result, Exception? ex = null, string customErrorMessage = "")
-        {
-            if (ex != null)
-            {
                 result.ErrorMessage = ex.Message;
                 result.StatusCode = System.Net.HttpStatusCode.InternalServerError;
-            }
-            else if (string.IsNullOrWhiteSpace(customErrorMessage))
-            {
-                result.ErrorMessage = customErrorMessage;
-                result.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                result.Success = false;
+                return result;
             }
 
+            result.ErrorMessage = "Bad request.";
+            result.StatusCode = System.Net.HttpStatusCode.BadRequest;
             result.Success = false;
-
             return result;
         }
 
         private async Task<string> getNewId()
         {
             var latestId = await getLatestFreeId();
-            var newId = Convert.ToInt32(latestId.Substring(1, latestId.Length)) + 1;
+            var newId = (Convert.ToInt32(latestId.Substring(1, latestId.Length-1)) + 1).ToString();
 
-            return string.Format("C{newId}", newId);
+            return string.Format("C{0}", newId);
         }
 
         private async Task<string> getLatestFreeId()
         {
             var latestId = await _vehicleRepository.GetLatestFreeId();
+            if (string.IsNullOrEmpty(latestId))
+            {
+                //default Vehicle Id
+                return "C0";
+            }
+
             return latestId;
         }
     }

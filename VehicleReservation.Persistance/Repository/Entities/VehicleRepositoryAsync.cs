@@ -16,7 +16,7 @@ namespace VehicleReservation.Persistance.Repository.Entities
 
         public async Task<string> GetLatestFreeId()
         {
-            return (await _vehicles.OrderByDescending(x => x.UniqueId).FirstOrDefaultAsync()).UniqueId;
+            return (await _vehicles.OrderByDescending(x => x.UniqueId).FirstOrDefaultAsync())?.UniqueId!;
         }
 
         public async Task<Vehicle> GetById(string id)

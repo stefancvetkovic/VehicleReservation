@@ -8,7 +8,7 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.DeleteVehicle
     {
         public string? VehicleId { get; set; }
     }
-    public class DeleteVehicleCommandHanlder<T> : IRequestHandler<DeleteVehicleCommand, Result<string>>
+    public class DeleteVehicleCommandHanlder : IRequestHandler<DeleteVehicleCommand, Result<string>>
     {
         private readonly IVehicleRepositoryAsync _vehicleRepository;
         public DeleteVehicleCommandHanlder(IVehicleRepositoryAsync vehicleRepository)
@@ -21,7 +21,7 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.DeleteVehicle
             Result<string> result = new();
             try
             {
-                if (string.IsNullOrWhiteSpace(request.VehicleId))
+                if (!string.IsNullOrWhiteSpace(request.VehicleId))
                 {
                     var vehicle = await _vehicleRepository.GetById(request.VehicleId!);
                     await _vehicleRepository.DeleteAsync(vehicle);
