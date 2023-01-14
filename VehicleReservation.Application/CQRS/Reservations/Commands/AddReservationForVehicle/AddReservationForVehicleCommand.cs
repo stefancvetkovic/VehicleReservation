@@ -1,11 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VehicleReservation.Application.Exceptions;
 using VehicleReservation.Application.Intefaces.Entities;
 using VehicleReservation.Domain.Entities;
 using VehicleReservation.Dto;
@@ -32,8 +26,14 @@ namespace VehicleReservation.Application.CQRS.Reservations.Commands.AddReservati
             Result<ReservationDto> result = new();
             try
             {
+                if (request.ReservationDto == null)
+                {
+                    result.Success = true;
+                    result.ErrorMessage = "Please check your reservation model body";
+                    result.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                    return result;
+                }
                 Reservation reservationEntity = _mapper.Map<Reservation>(request.ReservationDto);
-
                 var response = await _reservationRepository.AddAsync(reservationEntity);
 
                 result.Data = request.ReservationDto;
@@ -41,12 +41,13 @@ namespace VehicleReservation.Application.CQRS.Reservations.Commands.AddReservati
                 result.StatusCode = System.Net.HttpStatusCode.OK;
 
                 return result;
+
             }
             catch (Exception ex)
             {
                 result.Success = true;
-                result.ErrorMessage= ex.Message;
-                result.StatusCode = System.Net.HttpStatusCode.OK;
+                result.ErrorMessage = ex.Message;
+                result.StatusCode = System.Net.HttpStatusCode.InternalServerError;
                 return result;
             }
         }
