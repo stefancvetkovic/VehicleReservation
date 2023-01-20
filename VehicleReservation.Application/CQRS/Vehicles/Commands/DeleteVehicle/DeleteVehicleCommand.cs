@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using VehicleReservation.Application.Intefaces.Entities;
 using VehicleReservation.Dto;
 
@@ -11,9 +12,11 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.DeleteVehicle
     public class DeleteVehicleCommandHanlder : IRequestHandler<DeleteVehicleCommand, Result<string>>
     {
         private readonly IVehicleRepositoryAsync _vehicleRepository;
-        public DeleteVehicleCommandHanlder(IVehicleRepositoryAsync vehicleRepository)
+        private readonly IMapper _mapper;
+        public DeleteVehicleCommandHanlder(IVehicleRepositoryAsync vehicleRepository, IMapper mapper)
         {
             _vehicleRepository = vehicleRepository;
+            _mapper = mapper;
         }
 
         public async Task<Result<string>> Handle(DeleteVehicleCommand request, CancellationToken cancellationToken)

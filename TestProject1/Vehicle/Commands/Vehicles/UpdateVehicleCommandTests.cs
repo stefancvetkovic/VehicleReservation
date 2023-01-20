@@ -35,7 +35,7 @@ namespace VehicleReservation.Test.Vehicle.Commands.Vehicles
                 {
                     Maker = "BMW",
                     Model = "M4",
-                    UniqueId = "C8"
+                    UniqueId = "C1"
                 }
             });
 
@@ -45,7 +45,7 @@ namespace VehicleReservation.Test.Vehicle.Commands.Vehicles
                 {
                     Maker = "BMW",
                     Model = "M4",
-                    UniqueId = "C8"
+                    UniqueId = "C2"
                 }
             });
 
@@ -59,8 +59,8 @@ namespace VehicleReservation.Test.Vehicle.Commands.Vehicles
                 }
             };
 
-            var exception = FluentActions.Invoking(() => SendAsync(command))
-                .Should().ThrowAsync<ValidationException>();
+            await FluentActions.Awaiting(() => SendAsync(command))
+     .Should().ThrowAsync<ValidationException>();
         }
     }
 }

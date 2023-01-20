@@ -3,6 +3,7 @@ using Serilog;
 using VehicleReservation.Application;
 using VehicleReservation.Persistance;
 using VehicleReservation.Persistance.Context;
+using VehicleReservation.WebApi.Middleware;
 
 namespace VehicleReservation.WebApi
 {
@@ -33,7 +34,7 @@ namespace VehicleReservation.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            //app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseErrorHandlingMiddleware();
             app.UseRouting();
 

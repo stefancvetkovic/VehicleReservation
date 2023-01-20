@@ -8,8 +8,8 @@ namespace VehicleReservation.Application.Mappings
     {
         public VehicleProfile()
         {
-            CreateMap<VehicleDto, Vehicle>();
-            CreateMap<Vehicle, VehicleDto>();
+            CreateMap<VehicleDto, Vehicle>().ReverseMap();
+            //CreateMap<Vehicle, VehicleDto>();
         }
     }
 }

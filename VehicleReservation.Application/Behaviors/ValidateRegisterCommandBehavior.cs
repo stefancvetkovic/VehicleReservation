@@ -1,7 +1,5 @@
 ﻿using FluentValidation;
 using MediatR;
-using System.ComponentModel.DataAnnotations;
-using VehicleReservation.Application.Exceptions;
 
 namespace VehicleReservation.Application.Behaviors
 {

@@ -39,14 +39,13 @@ namespace VehicleReservation.Vehicle.Commands.Vehicles
                 }
             };
 
-            FluentActions.Invoking(() => SendAsync(command))
+            await FluentActions.Awaiting(() => SendAsync(command))
                 .Should().ThrowAsync<ValidationException>();
         }
 
         [Test]
         public async Task ShouldCreateVehicle()
         {
-
             var command = new AddVehicleCommand
             {
                 Vehicle = new VehicleDto
