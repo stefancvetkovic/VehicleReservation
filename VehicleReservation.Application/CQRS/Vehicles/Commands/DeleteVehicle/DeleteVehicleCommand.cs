@@ -26,10 +26,10 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.DeleteVehicle
             {
                 if (!string.IsNullOrWhiteSpace(request.VehicleId))
                 {
-                    var vehicle = await _vehicleRepository.GetById(request.VehicleId!);
+                    var vehicle = await _vehicleRepository.GetByIdAsync(request.VehicleId!);
                     await _vehicleRepository.DeleteAsync(vehicle);
 
-                    return new Result<string> { Data = request.VehicleId!};
+                    return new Result<string> { Data = request.VehicleId!, StatusCode = System.Net.HttpStatusCode.OK, Success = true};
                 }
             }
             catch (Exception ex)

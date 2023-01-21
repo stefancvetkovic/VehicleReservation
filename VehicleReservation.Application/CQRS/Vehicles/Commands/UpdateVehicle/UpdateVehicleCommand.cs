@@ -28,7 +28,7 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.UpdateVehicle
             {
                 if (request.Vehicle != null)
                 {
-                    var entityForUpdate = await _vehicleRepository.GetById(request.Vehicle.UniqueId!);
+                    var entityForUpdate = await _vehicleRepository.GetByIdAsync(request.Vehicle.UniqueId!);
                     Vehicle entity = _mapper.Map(request.Vehicle, entityForUpdate);
 
                     await _vehicleRepository.UpdateAsync(entity);

@@ -6,7 +6,8 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.DeleteVehicle
     {
         public DeleteVehicleCommandValidator()
         {
-            //da li je id prosledjen
+            //TODO:
+            //I didn't have a time, but here we would probably like to check if id (for exaample: "C1") is there, and id is not null or empty.
         }
     }
 }

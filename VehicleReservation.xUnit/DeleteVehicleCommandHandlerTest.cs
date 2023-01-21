@@ -40,7 +40,7 @@ namespace VehicleReservation.xUnit
         public async Task ShouldDeleteVehicle()
         {
             var result = await _handler.Handle(new DeleteVehicleCommand() { VehicleId = "C1" }, CancellationToken.None);
-            var vehicleForDelete = await _mockUow.Object.GetById("C1");
+            var vehicleForDelete = await _mockUow.Object.GetByIdAsync("C1");
 
             await _mockUow.Object.DeleteAsync(vehicleForDelete);
 

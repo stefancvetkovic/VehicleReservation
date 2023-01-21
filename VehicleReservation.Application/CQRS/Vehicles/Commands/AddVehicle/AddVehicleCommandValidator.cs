@@ -11,31 +11,32 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.AddVehicle
         {
             _repositoryVehicle = repositoryVehicle;
 
-            RuleFor(x => x.Vehicle.Model).NotNull().WithMessage("Model is required.");
-            RuleFor(x => x.Vehicle.Maker).NotNull().WithMessage("Maker is required.");
-            RuleFor(x => x.Vehicle.UniqueId).NotNull().WithMessage("UniqueId is required").Must(CheckKeyComposition).WithMessage("UniqueId needs to be in fomrat C<number>");
-            RuleFor(x => x.Vehicle.UniqueId).MustAsync((x, cancellation) => AlreadyInUse(x)).WithMessage("This id is already in use.");
+            RuleFor(x => x.Vehicle.Model)
+                .NotNull()
+                .WithMessage("Model is required.");
+            RuleFor(x => x.Vehicle.Maker)
+                .NotNull()
+                .WithMessage("Maker is required.");
+            RuleFor(x => x.Vehicle.UniqueId)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("UniqueId is required.")
+                .Must(CheckKeyComposition).WithMessage("UniqueId needs to be in fomrat C<number>");
+
+            RuleFor(x => x.Vehicle.UniqueId)
+                .Must(x => AlreadyInUse(x))
+                .WithMessage("This id is already in use.");
         }
 
-        private async Task<bool> AlreadyInUse(string key)
+        private bool AlreadyInUse(string key)
         {
-            var entity = await _repositoryVehicle.GetById(key);
-            if(entity == null)
-            {
-                return true;
-            }
-            var id = entity.UniqueId;
-
-            if(key == id)
-            {
-                return true;
-            }
-            return false;
+            var asas = _repositoryVehicle.HasFreeVehicleId(key);
+            return _repositoryVehicle.HasFreeVehicleId(key);
         }
 
         private bool CheckKeyComposition(string key)
         {
-            var firstChar = key.Substring(0);
+            var firstChar = key.Substring(0,1);
             var secondChar = key.Substring(1, key.Length-1);
 
             bool res = int.TryParse(secondChar, out int number);

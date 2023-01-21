@@ -31,7 +31,7 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.AddVehicle
 
                     vehicle.Maker = request.Vehicle.Maker;
                     vehicle.Model = request.Vehicle.Model;
-                    vehicle.UniqueId = await getNewId();
+                    vehicle.UniqueId = request.Vehicle.UniqueId;
 
                     Vehicle entity = _mapper.Map<Vehicle>(vehicle);
                     var response = await _vehicleRepository.AddAsync(entity);
@@ -55,26 +55,6 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.AddVehicle
             result.StatusCode = System.Net.HttpStatusCode.BadRequest;
             result.Success = false;
             return result;
-        }
-
-        private async Task<string> getNewId()
-        {
-            var latestId = await getLatestFreeId();
-            var newId = (Convert.ToInt32(latestId.Substring(1, latestId.Length-1)) + 1).ToString();
-
-            return string.Format("C{0}", newId);
-        }
-
-        private async Task<string> getLatestFreeId()
-        {
-            var latestId = await _vehicleRepository.GetLatestFreeId();
-            if (string.IsNullOrEmpty(latestId))
-            {
-                //default Vehicle Id
-                return "C0";
-            }
-
-            return latestId;
         }
     }
 }

@@ -12,6 +12,7 @@ namespace VehicleReservation.Application.Intefaces.Entities
     {
         Task<string> GetLatestFreeId();
 
-        Task<Vehicle> GetById(string id);
+        Task<Vehicle> GetByIdAsync(string id);
+        bool HasFreeVehicleId(string id);
     }
 }
