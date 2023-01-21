@@ -9,7 +9,6 @@ namespace VehicleReservation.Application.Mappings
         public VehicleProfile()
         {
             CreateMap<VehicleDto, Vehicle>().ReverseMap();
-            //CreateMap<Vehicle, VehicleDto>();
         }
     }
 }

@@ -38,17 +38,9 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.AddVehicle
             var firstChar = key.Substring(0);
             var secondChar = key.Substring(1, key.Length-1);
 
-            int number;
-            bool res = int.TryParse(secondChar, out number);
+            bool res = int.TryParse(secondChar, out int number);
 
-            if (firstChar.Equals("C") && res)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return firstChar.Equals("C") && res;
         }
     }
 }

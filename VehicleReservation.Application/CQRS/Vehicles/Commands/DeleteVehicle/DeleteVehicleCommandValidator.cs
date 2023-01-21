@@ -6,7 +6,7 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.DeleteVehicle
     {
         public DeleteVehicleCommandValidator()
         {
-
+            //da li je id prosledjen
         }
     }
 }

@@ -12,7 +12,6 @@ namespace VehicleReservation.Domain.Entities
         public string? UniqueId { get; set; }
         public string? Model { get; set; }
         public string? Maker { get; set; }
-        public bool IsDeleted { get; set; }
-        public ICollection<Reservation> Reservation { get; set; }
+        public ICollection<Reservation>? Reservation { get; set; }
     }
 }
