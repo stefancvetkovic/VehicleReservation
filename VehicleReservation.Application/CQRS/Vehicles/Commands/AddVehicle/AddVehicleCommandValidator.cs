@@ -30,7 +30,6 @@ namespace VehicleReservation.Application.CQRS.Vehicles.Commands.AddVehicle
 
         private bool AlreadyInUse(string key)
         {
-            var asas = _repositoryVehicle.HasFreeVehicleId(key);
             return _repositoryVehicle.HasFreeVehicleId(key);
         }
 
