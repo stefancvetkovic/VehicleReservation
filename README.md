@@ -12,6 +12,7 @@ API Endpoints
 Vehicle
 GET /Vehicle
 
+
 POST /Vehicle
 Body example: 
 {
@@ -20,6 +21,7 @@ Body example:
   "uniqueId": "C5"
 }
 
+
 PUT /Vehicle
 Body example: 
 {
@@ -27,11 +29,16 @@ Body example:
   "maker": "307",
   "uniqueId": "C5"
 }
+
 DELETE /Vehicle/{id}
 Id: string => Mandatory
+
 Reservation
+
 GET /Reservation
+
 POST/Reservation
+
 Body example:
 {
   "startFrom": "2023-01-20T21:38:31.687Z",
